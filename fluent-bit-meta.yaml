@@ -1,0 +1,18 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: fluent-bit-meta
+  namespace: flux   # we put HelmRelease resources into flux namespace to make use of secretRef with Git credentials
+spec:
+  releaseName: fluent-bit-meta
+  targetNamespace: flux   # the namespace where Helm chart gets deployed
+  chart:
+    git: "https://bitbucket.org/example/helm"
+    path: "logging/fluent-bit-meta"
+    ref: "master"
+    version: "0.1.0"
+    secretRef:
+      name: flux-git-auth
+  valuesFrom:
+  - configMapKeyRef:
+      name: default-cluster-values

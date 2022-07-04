@@ -1,0 +1,37 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: prometheus-operator
+    release: prometheus
+  name: alert-rules-flux
+  namespace: flux
+spec:
+  groups:
+  - name: flux
+    rules:
+    - alert: FluxQueueNotEmpty
+      annotations:
+        summary: Flux queue is not empty for 5 minutes.
+      for: 5m
+      expr: flux_daemon_queue_length_count > 1
+      labels:
+        severity: warning
+    - alert: FluxSyncErrors
+      annotations:
+        summary: >
+          There are {{ $value }} errors synchronizing with cluster repository, check Flux logs on the cluster:
+            `$ kubectl -n flux logs --since=1h deploy/flux`
+      for: 5m
+      expr: flux_daemon_sync_manifests{success="false"} > 0
+      labels:
+        severity: high
+    - alert: FluxHelmOperatorErrors
+      annotations:
+        summary: >
+          There is an issue deploying `{{ $labels.release_name }}` Helm release to `{{ $labels.target_namespace }}` namespace. Check Helm Operator logs on the cluster:
+            `$ kubectl -n flux logs --since=1h deploy/helm-operator`
+      for: 5m
+      expr: sum by(release_name, target_namespace) (flux_helm_operator_release_condition_info) != 3
+      labels:
+        severity: warning

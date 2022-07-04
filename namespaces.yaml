@@ -1,0 +1,36 @@
+# We need this definition in order to make sure the namespaces are labelled properly - a requirement for kubernetes network policies.
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    annotations:
+      fluxcd.io/ignore: sync_only   # We never want to delete this namespace
+    labels:
+      k8s-namespace: default
+    name: default
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    annotations:
+      fluxcd.io/ignore: sync_only   # We never want to delete this namespace
+    labels:
+      k8s-namespace: kube-system
+    name: kube-system
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    annotations:
+      fluxcd.io/ignore: sync_only   # We never want to delete this namespace
+    labels:
+      k8s-namespace: monitoring
+    name: monitoring
+- apiVersion: v1
+  kind: Namespace
+  metadata:
+    annotations:
+      fluxcd.io/ignore: sync_only   # We never want to delete this namespace
+    labels:
+      k8s-namespace: logging
+    name: logging
