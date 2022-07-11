@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: helm-repo
+  namespace: flux-system
+spec:
+  url: https://bitbucket.org/example/helm
+  interval: 10m
+  secretRef:
+    name: flux-git-auth
