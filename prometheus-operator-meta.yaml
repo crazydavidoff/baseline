@@ -18,6 +18,6 @@ spec:
         kind: HelmRepository
         name: helm-repo
         namespace: flux-system
-      valuesFrom:
-      - kind: ConfigMap
-        name: default-cluster-values
+  valuesFrom:
+  - kind: ConfigMap
+    name: default-cluster-values
