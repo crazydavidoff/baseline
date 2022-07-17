@@ -14,10 +14,10 @@ spec:
       chart: ./security/default-cluster-network-policies
       version: '0.1.0'
       # The reference to the GitRepository
-    sourceRef:
-      kind: HelmRepository
-      name: helm-repo
-      namespace: flux-system
+      sourceRef:
+        kind: HelmRepository
+        name: helm-repo
+        namespace: flux-system
   valuesFrom:
   - kind: ConfigMap
     name: default-cluster-values
