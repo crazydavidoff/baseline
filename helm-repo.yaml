@@ -8,5 +8,4 @@ spec:
   interval: 10m
   secretRef:
     name: flux-git-auth
-  ref:
-    branch: master
+    
