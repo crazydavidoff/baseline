@@ -13,7 +13,6 @@ spec:
       # The path of the chart relative to the repository root
       chart: ./logging/fluent-bit-meta
       version: '0.1.0'
-      ref: 'master'
       # The reference to the GitRepository
       sourceRef:
         kind: HelmRepository
